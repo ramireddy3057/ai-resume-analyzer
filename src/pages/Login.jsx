@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Navbar from '../components/Navbar'
-
+import BASE_URL from '../api'
 export default function Login() {
   const navigate = useNavigate()
   const [form, setForm] = useState({ email: '', password: '' })
@@ -19,7 +19,7 @@ export default function Login() {
     }
     setLoading(true)
     try {
-      const res = await axios.post('http://localhost:5000/login', form)
+      const res = await axios.post(`${BASE_URL}/login`, form)
       if (res.data.token) {
         localStorage.setItem('token', res.data.token)
         navigate('/dashboard')

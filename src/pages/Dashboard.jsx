@@ -2,7 +2,7 @@ import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Navbar from '../components/Navbar'
-
+import BASE_URL from '../api'
 export default function Dashboard() {
   const navigate = useNavigate()
   const fileRef = useRef()
@@ -35,7 +35,7 @@ export default function Dashboard() {
       const formData = new FormData()
       formData.append('resume', file)
       formData.append('jobDescription', jd)
-      const res = await axios.post('http://localhost:5000/analyze-resume', formData)
+      const res = await axios.post(`${BASE_URL}/analyze-resume`, formData)
       navigate('/result', { state: { result: res.data, fileName: file.name } })
     } catch {
       setError('Analysis failed. Make sure your backend server is running on port 5000.')
